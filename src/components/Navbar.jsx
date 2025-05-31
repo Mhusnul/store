@@ -1,11 +1,68 @@
 import React from "react";
+import { Link } from "react-router";
+import Category from "./Category";
 
 function Navbar() {
   return (
-    <div className="">
-      <div className="navbar bg-neutral shadow-sm gap-5 ">
+    <div>
+      {/* Navbar Mobile - Tampil hanya di layar kecil */}
+      <div className="navbar bg-neutral shadow-sm gap-3 fixed z-10 lg:hidden px-4">
         <div className="flex-1">
-          <a className="btn btn-neutral text-xl">Eazy Shop</a>
+          <Link to="/" className="btn btn-neutral text-xl">
+            Eazy Shop
+          </Link>
+        </div>
+        <input
+          type="text"
+          placeholder="Search"
+          className="input input-bordered navbar-center"
+        />
+        {/* Menu Dropdown */}
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </div>
+
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral rounded-box w-52 text-white"
+          >
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/login">Masuk</Link>
+            </li>
+            <li>
+              <Link to="/register">Daftar</Link>
+            </li>
+            <li>
+              <a>
+                Cart <span className="badge badge-sm">8</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="navbar bg-neutral shadow-sm gap-5 fixed z-10 hidden lg:flex ">
+        <div className="flex-1">
+          <Link to="/" className="btn btn-neutral text-xl">
+            Eazy Shop
+          </Link>
         </div>
         <input
           type="text"
@@ -44,9 +101,9 @@ function Navbar() {
             >
               <div className="card-body">
                 <span className="text-lg font-bold">8 Items</span>
-                <span className="text-info">Subtotal: $999</span>
+                <span>Subtotal: $999</span>
                 <div className="card-actions">
-                  <button className="btn btn-primary btn-block">
+                  <button className="btn btn-neutral btn-block">
                     View cart
                   </button>
                 </div>
@@ -61,6 +118,8 @@ function Navbar() {
           <a className="btn btn-neutral">Daftar</a>
         </div>
       </div>
+
+      <Category />
     </div>
   );
 }
