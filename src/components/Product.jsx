@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getAllProducts } from "../api/product";
+import { useNavigate } from "react-router";
 
-const ProductList = ({ filtredByCategory }) => {
+const ProductList = ({ filtredByCategory, productId }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   const fetchProducts = async () => {
     try {
@@ -80,7 +83,12 @@ const ProductList = ({ filtredByCategory }) => {
               <span className="text-red-500 font-semibold">
                 ${product.price}
               </span>
-              <button className="btn btn-sm btn-neutral">Lihat Detail</button>
+              <button
+                onClick={() => navigate(`/products/${product.id}`)}
+                className="btn btn-sm btn-neutral"
+              >
+                Lihat Detail
+              </button>
             </div>
             <div className="rating">
               <div className="mask mask-star" aria-label="1 star"></div>

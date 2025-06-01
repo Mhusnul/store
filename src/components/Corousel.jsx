@@ -1,4 +1,3 @@
-import React from "react";
 import benner from "../assets/benner.gif";
 import small from "../assets/small-benner.gif";
 import benner2 from "../assets/benner2.gif";

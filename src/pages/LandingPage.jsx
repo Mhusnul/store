@@ -13,7 +13,6 @@ function LandingPage() {
   return (
     <>
       <Navbar />
-
       <Corousel />
       <CardPage />
       <BrandCorousel />
