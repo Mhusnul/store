@@ -5,10 +5,9 @@ import Product from "../components/Product";
 function NewArivals() {
   return (
     <>
-      <Navbar />
       <div className="flex pt-15">
         <SideBar />
-        <Product filtredByCategory="Clothes" />
+        <Product filtredByCategory="Electronic" />
       </div>
     </>
   );

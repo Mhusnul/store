@@ -5,7 +5,6 @@ import Product from "../components/Product";
 function Others() {
   return (
     <>
-      <Navbar />
       <div className="flex pt-15">
         <SideBar />
         <Product />

@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { getDetailProducts } from "../api/product";
 import { useParams } from "react-router";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import Shoes from "../pages/Shoes";
 import ProductList from "./Product";
 
 function DetailProduct() {
   const { id } = useParams();
   const [detailProduct, setDetailProduct] = useState({});
   const [loading, setLoading] = useState(true);
+  const size = [
+    "US 4",
+    "US 3",
+    " US 2",
+    "US 5",
+    "US 7",
+    "US 8",
+    "US 9",
+    "EUR 21",
+    "EUR 31",
+    "EUR 33",
+    "EUR 42",
+    "EUR 43",
+  ];
 
   const fetchDetailProduct = async () => {
     try {
@@ -30,12 +41,11 @@ function DetailProduct() {
 
   return (
     <>
-      <Navbar />
       <section className="bg-gray-100 px-10 py-1 grid md:grid-cols-2 gap-5">
         <div className="flex gap-2 items-center">
           <div className="">
             {detailProduct.images.map((img) => (
-              <a href={`#${img}`}>
+              <a key={img} href={`#${img}`}>
                 <img src={img} className=" mt-1  shadow-2xl hover:border-2" />
               </a>
             ))}
@@ -43,7 +53,7 @@ function DetailProduct() {
           <div>
             <div className="carousel">
               {detailProduct.images.map((img) => (
-                <div id={img} className="carousel-item w-full">
+                <div key={img} id={img} className="carousel-item w-full">
                   <img src={img} className="w-full" />
                 </div>
               ))}
@@ -82,39 +92,14 @@ function DetailProduct() {
               </a>
             </div>
             <div className="grid  grid-cols-2 md:grid-cols-3 ">
-              <button className="font-bold px-10 py-2 border hover:border-2 m-2">
-                US 4
-              </button>
-              <button className="font-bold px-10 py-2 border hover:border-2 m-2">
-                US 4
-              </button>
-              <button className="font-bold px-10 py-2 border hover:border-2 m-2">
-                US 4
-              </button>
-              <button className="font-bold px-10 py-2 border hover:border-2 m-2">
-                US 4
-              </button>
-              <button className="font-bold px-10 py-2 border hover:border-2 m-2">
-                US 4
-              </button>
-              <button className="font-bold px-10 py-2 border hover:border-2 m-2">
-                US 4
-              </button>
-              <button className="font-bold px-10 py-2 border hover:border-2 m-2">
-                US 4
-              </button>
-              <button className="font-bold px-10 py-2 border hover:border-2 m-2">
-                US 4
-              </button>
-              <button className="font-bold px-10 py-2 border hover:border-2 m-2">
-                US 4
-              </button>
-              <button className="font-bold px-10 py-2 border hover:border-2 m-2">
-                US 4
-              </button>
-              <button className="font-bold px-10 py-2 border hover:border-2 m-2">
-                US 4
-              </button>
+              {size.map((s) => (
+                <button
+                  key={s}
+                  className="font-bold px-10 py-2 border hover:border-2 m-2"
+                >
+                  {s}
+                </button>
+              ))}
             </div>
 
             <div>
@@ -122,19 +107,18 @@ function DetailProduct() {
             </div>
 
             <div className="gap-2 flex">
-              <input type="number" value="1" className="border p-2" />
+              <input type="number" min={1} className="border p-2" />
               <button className="btn btn-neutral px-10 hover:bg-white hover:text-black">
-                Neutral
+                Beli
               </button>
               <button className="btn btn-outline px-10 hover:btn-neutral">
-                Default
+                Keranjang
               </button>
             </div>
           </div>
         </div>
       </section>
       <ProductList />
-      <Footer />
     </>
   );
 }

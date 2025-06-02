@@ -12,7 +12,6 @@ import Product from "../components/Product";
 function LandingPage() {
   return (
     <>
-      <Navbar />
       <Corousel />
       <CardPage />
       <BrandCorousel />
@@ -20,7 +19,6 @@ function LandingPage() {
       <Benner />
       <Product filtredByCategory="Shoes" />
       <CardGender />
-      <Footer />
     </>
   );
 }

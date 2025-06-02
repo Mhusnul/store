@@ -5,7 +5,6 @@ import Product from "../components/Product";
 function Furniture() {
   return (
     <>
-      <Navbar />
       <div className="flex pt-15">
         <SideBar />
         <Product filtredByCategory="Furniture" />
