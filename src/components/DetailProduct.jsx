@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getDetailProducts } from "../api/product";
 import { useParams } from "react-router";
 import ProductList from "./Product";
+import { useCart } from "../context/CartContext";
 
 function DetailProduct() {
   const { id } = useParams();
@@ -22,6 +23,9 @@ function DetailProduct() {
     "EUR 43",
   ];
 
+  const { addToCart } = useCart();
+  const [qty, setQty] = useState(1);
+
   const fetchDetailProduct = async () => {
     try {
       const data = await getDetailProducts(id);
@@ -37,7 +41,41 @@ function DetailProduct() {
     fetchDetailProduct();
   }, [id]);
 
-  if (loading) return <p className="p-6">Loading...</p>;
+  if (loading) {
+    return (
+      <section className="bg-gray-100 px-10 py-1 grid md:grid-cols-2 gap-5">
+        <div className="flex gap-2 items-center">
+          <div>
+            <div className="skeleton w-24 h-24 mb-2"></div>
+            <div className="skeleton w-24 h-24 mb-2"></div>
+            <div className="skeleton w-24 h-24"></div>
+          </div>
+          <div className="skeleton w-full h-96"></div>
+        </div>
+
+        <div className="mt-16 bg-white mb-5 p-5">
+          <div className="skeleton h-6 w-1/4 mb-2"></div>
+          <div className="skeleton h-8 w-1/2 mb-4"></div>
+          <div className="skeleton h-5 w-full mb-3"></div>
+          <div className="skeleton h-8 w-1/4 mb-4"></div>
+
+          <div className="skeleton h-5 w-1/3 mb-2"></div>
+          <div className="grid grid-cols-3 gap-2 mb-4">
+            <div className="skeleton h-10 w-full"></div>
+            <div className="skeleton h-10 w-full"></div>
+            <div className="skeleton h-10 w-full"></div>
+          </div>
+
+          <div className="skeleton h-5 w-1/3 mb-2"></div>
+          <div className="flex gap-2">
+            <div className="skeleton h-10 w-20"></div>
+            <div className="skeleton h-10 w-24"></div>
+            <div className="skeleton h-10 w-24"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>
@@ -107,11 +145,20 @@ function DetailProduct() {
             </div>
 
             <div className="gap-2 flex">
-              <input type="number" min={1} className="border p-2" />
+              <input
+                type="number"
+                min={1}
+                value={qty}
+                onChange={(e) => setQty(parseInt(e.target.value))}
+                className="border p-2"
+              />
               <button className="btn btn-neutral px-10 hover:bg-white hover:text-black">
                 Beli
               </button>
-              <button className="btn btn-outline px-10 hover:btn-neutral">
+              <button
+                onClick={() => addToCart(detailProduct, qty)}
+                className="btn btn-outline px-5 hover:btn-neutral"
+              >
                 Keranjang
               </button>
             </div>
