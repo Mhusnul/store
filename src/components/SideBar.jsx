@@ -6,7 +6,7 @@ function SideBar() {
   const location = useLocation();
 
   const category = [
-    "newarrivals",
+    "Newarrivals",
     "Shoes",
     "Electronics",
     "Furniture",

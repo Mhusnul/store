@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router";
 import Category from "./Category";
 import { useCart } from "../context/CartContext";
 
@@ -8,6 +8,19 @@ function Navbar() {
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart.reduce((_, item) => totalItems * item.price, 0);
+
+  const [keyword, setKeyword] = useState("");
+
+  const navigate = useNavigate();
+
+  //search
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (keyword.trim() !== "") {
+      navigate(`/others?q=${encodeURIComponent(keyword)}`);
+    }
+  };
 
   return (
     <div>
@@ -70,11 +83,15 @@ function Navbar() {
             Eazy Shop
           </Link>
         </div>
-        <input
-          type="text"
-          placeholder="Search"
-          className="input input-bordered w-24 md:w-100 navbar-center"
-        />
+        <form onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="Search"
+            className="input input-bordered w-24 md:w-100 navbar-center"
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+          <button type="submit"></button>
+        </form>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
             <div
