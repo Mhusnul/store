@@ -1,10 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import Category from "./Category";
 import { useCart } from "../context/CartContext";
+import { logout } from "../api/auth";
 
 function Navbar() {
   const { cart } = useCart();
+  const [isLogin, setIsLogin] = useState(false);
+
+  //logout
+  useEffect(() => {
+    const checkLogin = () => {
+      const token = localStorage.getItem("token");
+      setIsLogin(!!token);
+    };
+
+    checkLogin();
+
+    window.addEventListener("login", checkLogin);
+    window.addEventListener("logout", checkLogin);
+
+    return () => {
+      window.removeEventListener("login", checkLogin);
+      window.removeEventListener("logout", checkLogin);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    setIsLogin(false);
+    window.dispatchEvent(new Event("logout"));
+    navigate("/");
+  };
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart.reduce((_, item) => totalItems * item.price, 0);
@@ -62,16 +89,27 @@ function Navbar() {
             <li>
               <Link to="/">Home</Link>
             </li>
+            {isLogin ? (
+              <>
+                <li>
+                  <button onClick={() => handleLogout()}> Logout</button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login">Masuk</Link>
+                </li>
+                <li>
+                  <Link to="/register">Daftar</Link>
+                </li>
+              </>
+            )}
+
             <li>
-              <Link to="/login">Masuk</Link>
-            </li>
-            <li>
-              <Link to="/register">Daftar</Link>
-            </li>
-            <li>
-              <a>
-                Cart <span className="badge badge-sm">8</span>
-              </a>
+              <Link to={"/cart"}>
+                Cart <span className="badge badge-sm">{totalItems}</span>
+              </Link>
             </li>
           </ul>
         </div>
@@ -83,11 +121,26 @@ function Navbar() {
             Eazy Shop
           </Link>
         </div>
-        <form onSubmit={handleSearch}>
+        <form className="input" onSubmit={handleSearch}>
+          <svg
+            className="h-[1em] opacity-50"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <g
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </g>
+          </svg>
           <input
             type="text"
             placeholder="Search"
-            className="input input-bordered w-24 md:w-100 navbar-center"
             onChange={(e) => setKeyword(e.target.value)}
           />
           <button type="submit"></button>
@@ -132,7 +185,7 @@ function Navbar() {
                 ))}
                 <span className="text-red-500"> $ {totalPrice}</span>
                 <div className="card-actions">
-                  <Link to={"cart"} className="btn btn-neutral btn-block">
+                  <Link to={"/cart"} className="btn btn-neutral btn-block">
                     View cart
                   </Link>
                 </div>
@@ -140,12 +193,25 @@ function Navbar() {
             </div>
           </div>
         </div>
-        <div className="">
-          <a className="btn">Masuk</a>
-        </div>
-        <div className="">
-          <a className="btn btn-neutral">Daftar</a>
-        </div>
+
+        {isLogin ? (
+          <div>
+            <button className="btn" onClick={() => handleLogout()}>
+              Logout
+            </button>
+          </div>
+        ) : (
+          <>
+            <div>
+              <Link className="btn" to="/login">
+                Masuk
+              </Link>
+            </div>
+            <div>
+              <a className="btn btn-neutral">Daftar</a>
+            </div>
+          </>
+        )}
       </div>
 
       <Category />

@@ -14,7 +14,7 @@ function LandingPage() {
       <BrandCorousel />
       <CtaCorousel />
       <Benner />
-      <Product filtredByCategory="Shoes" />
+      <Product />
       <CardGender />
     </>
   );
