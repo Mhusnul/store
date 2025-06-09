@@ -1,5 +1,5 @@
 import React from "react";
-import kickHomeBg from "../assets/APPROVED-COOL-KICKS-home-ID.WEBP";
+import kickHomeBg from "../assets/APPROVED-COOL-KICKS-home-ID.webp";
 import BestIn from "../assets/BEST-IN-CLASS-home-ID.webp";
 import complate from "../assets/COMPLETE-THE-LOOK-home-ID.webp";
 import varcity from "../assets/VARSITY-ESSENTIALS-home-ID.webp";
