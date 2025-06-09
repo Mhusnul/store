@@ -1,8 +1,8 @@
 import React from "react";
 import kickHomeBg from "../assets/APPROVED-COOL-KICKS-home-ID.WEBP";
-import BestIn from "../assets/BEST-IN-CLASS-home-ID.WEBP";
-import complate from "../assets/COMPLETE-THE-LOOK-home-ID.WEBP";
-import varcity from "../assets/VARSITY-ESSENTIALS-home-ID.WEBP";
+import BestIn from "../assets/BEST-IN-CLASS-home-ID.webp";
+import complate from "../assets/COMPLETE-THE-LOOK-home-ID.webp";
+import varcity from "../assets/VARSITY-ESSENTIALS-home-ID.webp";
 
 function CardPage() {
   return (
