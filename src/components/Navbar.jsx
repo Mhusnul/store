@@ -52,7 +52,7 @@ function Navbar() {
   return (
     <div>
       {/* Navbar Mobile - Tampil hanya di layar kecil */}
-      <div className="navbar bg-neutral shadow-sm gap-3 fixed z-10 lg:hidden px-4">
+      <div className="navbar bg-black shadow-sm gap-3 fixed z-10 lg:hidden px-4">
         <div className="flex-1">
           <Link to="/" className="btn btn-neutral text-xl">
             Eazy Shop
